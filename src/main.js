@@ -9,6 +9,7 @@ import VueAxios from "vue-axios";
 import "ant-design-vue/dist/antd.css";
 
 Vue.config.productionTip = false;
+Vue.prototype.$EventBus = new Vue()
 
 Vue.use(Antd);
 Vue.use(VueAxios, axios);
