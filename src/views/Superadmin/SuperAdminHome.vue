@@ -11,7 +11,7 @@
         </v-col>
         <v-col cols="7" class="pt-7 pr-5">
           <v-row justify="end" align="center">
-            <v-btn text>
+            <v-btn text @click="logout()">
               <v-icon>mdi-logout</v-icon> ออกจากระบบ
             </v-btn>
           </v-row>
@@ -72,7 +72,7 @@ export default {
       } else {
         if (val !== this.$router.currentRoute.name) {
           console.log(val);
-          this.$router.push(val)
+          this.$router.push(val).catch(() => {})
         }
       }
     },
@@ -82,6 +82,9 @@ export default {
       } else if (this.$router.currentRoute.name === 'listuseradmin') {
         this.defaultPath = 2
       }
+    },
+    logout () {
+      this.$router.push('/').catch(() => {})
     }
   }
 }

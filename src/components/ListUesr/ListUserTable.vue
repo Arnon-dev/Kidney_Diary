@@ -25,7 +25,7 @@
               <v-icon
                medium
                class="ml-5" 
-               @click="detailSeller(item)"
+               @click="detailUser(item)"
               >
                 mdi-clipboard-search-outline
               </v-icon>
@@ -148,6 +148,11 @@ export default {
   },
   created () {
     this.$EventBus.$emit('pathNav')
+  },
+  methods: {
+    detailUser () {
+      this.$router.push('detailpatient').catch(() => {})
+    }
   }
 }
 </script>

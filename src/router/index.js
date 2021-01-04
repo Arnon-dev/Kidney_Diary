@@ -19,7 +19,8 @@ const routes = [
     component: () => import("../views/Admin/AdminHome.vue"),
     children: [
       { path: "/admin", name: "admin", component: () => import("../views/Admin/Dashboard.vue") },
-      { path: "/listuser", name: "listuser", component: () => import("../components/ListUesr/ListUser.vue") }
+      { path: "/listuser", name: "listuser", component: () => import("../components/ListUesr/ListUser.vue") },
+      { path: "/detailpatient", name: "detailpatient", component: () => import("../components/DetailUser/DetailUserAdmin.vue") }
     ]
   },
   {
@@ -27,7 +28,8 @@ const routes = [
     component: () => import("../views/Superadmin/SuperAdminHome.vue"),
     children: [
       { path: "/superadmin", name: "superadmin", component: () => import("../components/ManageUser/ManageUser.vue") },
-      { path: "/listuseradmim", name: "listuseradmin", component: () => import("../components/ListUesr/ListUserAdmin.vue") }
+      { path: "/listuseradmin", name: "listuseradmin", component: () => import("../components/ListUesr/ListUserAdmin.vue") },
+      { path: "/detailpatientsuper", name: "detailpatientsuper", component: () => import("../components/DetailUser/DetailUserSuperAdmin.vue") }
     ]
   }
 ];

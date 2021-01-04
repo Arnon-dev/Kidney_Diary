@@ -91,7 +91,11 @@ export default {
   methods: {
     login () {
       if (this.$refs.loginform.validate(true)) {
-        this.$router.push("admin").catch(() => {})
+        if (this.username === 'admin@mail.com' && this.password === '1234') {
+          this.$router.push("admin").catch(() => {})
+        } else if (this.username === 'superadmin@mail.com' && this.password === '1234') {
+          this.$router.push("superadmin").catch(() => {})
+        }
       }
     },
     gotoRegister () {

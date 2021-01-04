@@ -6,7 +6,7 @@
           <a-tab-pane v-for="item in OrderName" :key="item.key" :tab="item.name">
             <v-row no-gutters>
               <v-col cols="12" md="12" sm="12">
-                <ListUserTable />
+                <ListUserAdminTable />
               </v-col>
             </v-row>
           </a-tab-pane>
@@ -26,7 +26,7 @@
 <script>
 export default {
   components: {
-    ListUserTable: () => import('@/components/ListUesr/ListUserAdminTable')
+    ListUserAdminTable: () => import('@/components/ListUesr/ListUserAdminTable')
   },
   data () {
     return {
