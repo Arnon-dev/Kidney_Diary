@@ -33,7 +33,7 @@
         </a-menu-item>
       </a-menu>
     </a-layout-sider>
-    <a-layout-content :style="{ overflow: 'initial', marginTop:'60px', marginLeft:'230px'}">
+    <a-layout-content :style="{ overflow: 'initial', marginTop:'60px', marginLeft:'235px'}">
       <v-container grid-list-xs style="background-color:#fff;margin-top:30px;margin-bottom:30px">
         <router-view></router-view>
       </v-container>
