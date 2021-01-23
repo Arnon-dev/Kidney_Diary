@@ -3,16 +3,18 @@ import axios from 'axios'
 export default {
   // Login
   async Login (val) {
-    const data = {}
+    const data = {
+      data: val
+    }
     try {
-      const response = await axios.post('http://localhost:8080/users')
+      const response = await axios.post('http://localhost:8080/users', data)
       return response
     } catch (error) {
       return error.response
     }
   },
   // Register
-  async Register (val) {
+  async Register () {
     const data = {
       username: "user1",
       password: "1234",
@@ -39,7 +41,7 @@ export default {
     }
   },
   // Add Hospital
-  async AddHospital (val) {
+  async AddHospital () {
     const data = {
       name: '',
       code: '',
@@ -94,7 +96,7 @@ export default {
     }
   },
   // Add Diary
-  async AddDiary (val) {
+  async AddDiary () {
     const data = {
       userId: 1,
       round: "round",
