@@ -3,39 +3,30 @@ import axios from 'axios'
 export default {
   // Login
   async Login (val) {
-    const data = {
-      data: val
-    }
+    const data = val.dataLogin
     try {
-      const response = await axios.post('http://localhost:8080/users', data)
-      return response
+      const response = await axios.post(`https://kidney-diary-service.yuzudigital.com/admins/login`, data)
+      return response.data
     } catch (error) {
       return error.response
     }
   },
   // Register
-  async Register () {
-    const data = {
-      username: "user1",
-      password: "1234",
-      firstName: "Kidney",
-      lastName: "Diary",
-      dateOfBirth: "1995-09-18",
-      age: 25,
-      telNo: "0123456789",
-      OTP: null,
-      email: "email@gmail.com",
-      gender: "MALE",
-      installationDate: "2020-12-27",
-      dateOfDialysis: "2020-12-27",
-      staffName: "Staff",
-      staffTel: "0123456789",
-      remark: "remark",
-      hospitalId: 1
-    }
+  async Register (val) {
+    const data = val.dataUser
+    // console.log('data', data)
     try {
-      const response = await axios.post('http://localhost:8080/users', data)
-      return response
+      const response = await axios.post(`https://kidney-diary-service.yuzudigital.com/admins`, data)
+      return response.data
+    } catch (error) {
+      return error.response  
+    }
+  },
+  // Get All User
+  async GetAllUser () {
+    try {
+      const response = await axios.get(`https://kidney-diary-service.yuzudigital.com/admins`)
+      return response.data
     } catch (error) {
       return error.response  
     }
@@ -71,8 +62,8 @@ export default {
   // Get all Hospital
   async GetAllHospital () {
     try {
-      const response = await axios.get('http://localhost:8080/hospitals')
-      return response
+      const response = await axios.get(`https://kidney-diary-service.yuzudigital.com/hospitals`)
+      return response.data
     } catch (error) {
       return error.response
     }

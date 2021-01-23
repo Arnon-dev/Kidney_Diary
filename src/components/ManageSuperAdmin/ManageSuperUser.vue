@@ -26,12 +26,12 @@
 <script>
 export default {
   components: {
-    ManageUserTable: () => import('@/components/ManageUser/ManageUserTable')
+    ManageUserTable: () => import('@/components/ManageSuperAdmin/ManageSuperUserTable')
   },
   data () {
     return {
       OrderName: [
-        { key: 0, name: 'admin' }
+        { key: 0, name: 'superadmin' }
         // { key: 1, name: 'superadmin' }
       ]
     }

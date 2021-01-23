@@ -5,7 +5,7 @@
         <v-col cols="5">
           <v-row no-gutters style="cursor: pointer;">
             <a-breadcrumb separator=">" class="ml-3 mt-4">
-              <a-breadcrumb-item class="headline"><span style="color:green">Kidnry </span>Diary</a-breadcrumb-item>
+              <a-breadcrumb-item class="headline"><span style="color:green">Kidney </span>Diary</a-breadcrumb-item>
             </a-breadcrumb>
           </v-row>
         </v-col>

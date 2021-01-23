@@ -28,6 +28,7 @@ const routes = [
     component: () => import("../views/Superadmin/SuperAdminHome.vue"),
     children: [
       { path: "/superadmin", name: "superadmin", component: () => import("../components/ManageUser/ManageUser.vue") },
+      { path: "/listsuperadmin",  name: "listsuperadmin", component: () => import("../components/ManageSuperAdmin/ManageSuperUser.vue") },
       { path: "/listuseradmin", name: "listuseradmin", component: () => import("../components/ListUesr/ListUserAdmin.vue") },
       { path: "/detailpatientsuper", name: "detailpatientsuper", component: () => import("../components/DetailUser/DetailUserSuperAdmin.vue") }
     ]

@@ -5,7 +5,7 @@
         <v-col cols="5">
           <v-row no-gutters style="cursor: pointer;">
             <a-breadcrumb separator=">" class="ml-3 mt-4">
-              <a-breadcrumb-item class="headline"><span style="color:green">Kidnry </span>Diary</a-breadcrumb-item>
+              <a-breadcrumb-item class="headline"><span style="color:green">Kidney </span>Diary</a-breadcrumb-item>
             </a-breadcrumb>
           </v-row>
         </v-col>
@@ -21,8 +21,8 @@
     <a-layout-sider width="230" :style="{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0, background: '#fff', marginTop:'70px' }">
       <a-menu
        style="width: 256px"
-       :default-selected-keys="[defaultPath]" 
-       :selectedKeys="[defaultPath]"
+       :default-selected-keys="[defaultPath]"
+       :selected-keys="[defaultPath]"
        mode="inline"
        theme="light"
        v-for="item in ListNavbar"
@@ -34,7 +34,7 @@
       </a-menu>
     </a-layout-sider>
     <a-layout-content :style="{ overflow: 'initial', marginTop:'60px', marginLeft:'235px'}">
-      <v-container grid-list-xs style="background-color:#fff;margin-top:30px;margin-bottom:30px">
+      <v-container grid-list-xs style="background-color:#fff; margin-top:30px; margin-bottom:30px">
         <router-view></router-view>
       </v-container>
     </a-layout-content>
@@ -48,14 +48,19 @@ export default {
       ListNavbar: [
         { key: '1',
           icon: 'idcard',
-          name: 'จัดการผู้ใช้งาน',
+          name: 'จัดการ admin',
           path: 'superadmin'
         },
         { key: '2',
-          icon: 'profile',
-          name: 'รายชื่อผู้ป่วย',
-          path: 'listuseradmin'
-        },
+          icon: 'idcard',
+          name: 'จัดการ superadmin',
+          path: 'listsuperadmin'
+        }
+        // { key: '3',
+        //   icon: 'profile',
+        //   name: 'รายชื่อผู้ป่วย',
+        //   path: 'listuseradmin'
+        // }
       ],
       defaultPath: 1
     }
@@ -79,11 +84,15 @@ export default {
     pathNavSuperAdmin () {
       if (this.$router.currentRoute.name === 'superadmin') {
         this.defaultPath = 1
-      } else if (this.$router.currentRoute.name === 'listuseradmin') {
+      } else if (this.$router.currentRoute.name === 'listsuperadmin') {
         this.defaultPath = 2
-      }
+      } 
+      // else if (this.$router.currentRoute.name === 'listuseradmin') {
+      //   this.defaultPath = 3
+      // }
     },
     logout () {
+      localStorage.removeItem('kidnryData')
       this.$router.push('/').catch(() => {})
     }
   }

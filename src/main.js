@@ -7,6 +7,8 @@ import vuetify from "./plugins/vuetify";
 import axios from "axios";
 import VueAxios from "vue-axios";
 import VueApexCharts from 'vue-apexcharts'
+import VueSweetalert2 from 'vue-sweetalert2'
+import 'sweetalert2/dist/sweetalert2.min.css'
 import "ant-design-vue/dist/antd.css";
 
 Vue.config.productionTip = false;
@@ -16,6 +18,7 @@ Vue.use(Antd);
 Vue.use(VueAxios, axios);
 Vue.use(VueApexCharts)
 Vue.component('apexchart', VueApexCharts)
+Vue.use(VueSweetalert2)
 
 new Vue({
   router,
