@@ -12,68 +12,68 @@
               <!-- Name Patient -->
               <v-col cols="12" md="2" class="pl-3 pb-5"><span class="f-right">ชื่อ-นามสกุล</span></v-col>
               <v-col cols="12" md="4" class="pl-3">
-                <v-text-field outlined v-model="fullname" dense></v-text-field>
+                <v-text-field outlined v-model="fullname" dense disabled></v-text-field>
               </v-col>
               <!-- Hospital -->
               <v-col cols="12" md="1" class="pl-3 pb-5"><span class="f-right">โรงพยาบาล</span></v-col>
               <v-col cols="12" md="4" class="pl-3">
-                <v-text-field outlined v-model="hospital" dense></v-text-field>
+                <v-text-field outlined v-model="dataPatient.hospitalName" dense disabled></v-text-field>
               </v-col>
               <!-- sex -->
               <v-col cols="12" md="2" class="pl-3 pb-5 pt-0" ><span class="f-right">เพศ</span></v-col>
               <v-col cols="12" md="4" class="pl-3">
-                <v-text-field outlined v-model="sex" dense ></v-text-field>
+                <v-text-field outlined v-model="sex" dense disabled></v-text-field>
               </v-col>
               <!-- Start to Clean Kidney -->
               <v-col cols="12" md="1" class="pl-3 pb-5 pt-0"><span class="f-right">วันที่วางสายท่อล้างไต</span></v-col>
               <v-col cols="12" md="4" class="pl-3">
-                <v-text-field outlined v-model="startDate" dense></v-text-field>
+                <v-text-field outlined v-model="dataPatient.installationDate" dense disabled></v-text-field>
               </v-col>
               <!-- Email -->
               <v-col cols="12" md="2" class="pl-3 pb-5 pt-0"><span class="f-right">วันเดือนปีเกิด</span></v-col>
               <v-col cols="12" md="4" class="pl-3">
-                <v-text-field outlined v-model="birthDate" dense></v-text-field>
+                <v-text-field outlined v-model="dataPatient.dateOfBirth" dense disabled></v-text-field>
               </v-col>
               <!-- start Kidney -->
               <v-col cols="12" md="1" class="pl-3 pb-5 pt-0"><span class="f-right">วันที่เริ่มล้างไตทางช่องท้อง</span></v-col>
               <v-col cols="12" md="4" class="pl-3">
-                <v-text-field outlined v-model="startKidney" dense></v-text-field>
+                <v-text-field outlined v-model="dataPatient.dateOfDialysis" dense disabled></v-text-field>
               </v-col>
               <!-- Year -->
               <v-col cols="12" md="2" class="pl-3 pb-5 pt-0"><span class="f-right">อายุ</span></v-col>
               <v-col cols="12" md="4" class="pl-3 pb-0">
-                <v-text-field outlined v-model="year" dense ></v-text-field>
+                <v-text-field outlined v-model="dataPatient.age" dense disabled></v-text-field>
               </v-col>
               <!-- Phone -->
               <v-col cols="12" md="1" class="pl-3 pb-5 pt-0"><span class="f-right">หมายเลขหน่วยไตเทียม</span></v-col>
               <v-col cols="12" md="4" class="pl-3">
-                <v-text-field outlined v-model="phone" dense></v-text-field>
+                <v-text-field outlined v-model="dataPatient.hospitalCode" dense disabled></v-text-field>
               </v-col>
               <!-- Mobile -->
               <v-col cols="12" md="2" class="pl-3 pb-5 pt-0"><span class="f-right">เบอร์โทรศัพท์</span></v-col>
               <v-col cols="12" md="4" class="pl-3 pb-0">
-                <v-text-field outlined v-model="mobile" dense ></v-text-field>
+                <v-text-field outlined v-model="dataPatient.telNo" dense disabled></v-text-field>
               </v-col>
               <!-- Nurse Name -->
               <v-col cols="12" md="1" class="pl-3 pb-5 pt-0"><span class="f-right">ชื่อพยาบาลผู้สอน</span></v-col>
               <v-col cols="12" md="4" class="pl-3">
-                <v-text-field outlined v-model="Nursename" dense></v-text-field>
+                <v-text-field outlined v-model="dataPatient.staffName" dense disabled></v-text-field>
               </v-col>
               <!-- Nurse Mobile -->
               <v-col cols="12" md="2" class="pl-3 pb-5 pt-0"><span class="f-right">หมายเลขโทรศัพท์พยาบาลผู้สอน</span></v-col>
               <v-col cols="12" md="4" class="pl-3 pb-0">
-                <v-text-field outlined v-model="Nursemobile" dense ></v-text-field>
+                <v-text-field outlined v-model="dataPatient.staffTel" dense disabled></v-text-field>
               </v-col>
               <!-- Phone -->
               <v-col cols="12" md="1" class="pl-3 pb-5 pt-0"><span class="f-right">หมายเหตุ</span></v-col>
               <v-col cols="12" md="4" class="pl-3">
-                <v-text-field outlined v-model="note" dense></v-text-field>
+                <v-text-field outlined v-model="dataPatient.remark" dense disabled></v-text-field>
               </v-col>
             </v-row>
           </v-card>
         </v-col>
         <v-col cols="12" class="mt-5">
-          <v-card outlined>
+          <v-card outlined v-if="dashboardReady">
             <v-row  no-gutters align="center">
               <v-col cols="11" class="mt-5 ml-10">
                 <h2>แดชบอร์ด</h2>
@@ -96,13 +96,30 @@
               </v-col>
             </v-row>
           </v-card>
-      </v-col>
+          <v-card height="200px" v-else>
+            <v-row  no-gutters align="center">
+              <v-col cols="11" class="mt-5 ml-10">
+                <h2>แดชบอร์ด</h2>
+              </v-col>
+              <v-col cols="12" class="mb-5"><v-divider></v-divider></v-col>
+              <v-col class="subtitle-1 text-center" cols="12">
+                <v-card-text>
+                  <div class="dashboard-loader">
+                    <span class="bars"></span>
+                    <span class="text">กำลังโหลดข้อมูล</span>
+                  </div>
+                </v-card-text>
+              </v-col>
+            </v-row>
+          </v-card>
+        </v-col>
       </v-row>
     </v-form>
   </v-container>
 </template>
 
 <script>
+import { Decode } from '@/services'
 export default {
   components: {
     Urinegraph: () => import('@/components/DashBoard/urinegaingraph.vue'),
@@ -113,6 +130,7 @@ export default {
     return {
       lazy: false,
       checkForm: true,
+      PatientID: null,
       fullname: '',
       hospital: '',
       sex: '',
@@ -124,12 +142,137 @@ export default {
       mobile: '',
       Nursename: '',
       Nursemobile: '',
-      note: ''
+      note: '',
+      dataUser: [],
+      items: [],
+      dataPatient: []
+    }
+  },
+  async created () {
+    this.$store.commit('DashboardReady', false)
+    if (Object.prototype.hasOwnProperty.call(localStorage, 'dataPatient')) {
+      this.dataUser = JSON.parse(Decode.decode(localStorage.getItem('dataPatient')))
+      this.PatientID = JSON.parse(Decode.decode(localStorage.getItem('PatientID')))
+      // console.log(this.dataPatient)
+      await this.$store.dispatch('actionGetAllChart')
+      // await this.$store.dispatch('actionGetProfitChart')
+      // await this.$store.dispatch('actionGetWeightChart')
+      this.getUserdata()
+    } else {
+      this.dataPatient = []
+      this.$swal.fire({
+        icon: 'error',
+        title: 'ไม่มีข้อมูลคนไข้',
+        text: 'โปรดติดต่อ admin',
+        showConfirmButton: false,
+        timer: 1500
+      })
+    }
+  },
+  methods: {
+    getUserdata () {
+      var data = [...this.dataUser.users]
+      var cleanData = data.filter(item => item.id === this.PatientID)
+      // console.log('Clean data =====>', cleanData)
+      this.dataPatient = cleanData[0]
+      console.log('Clean data =====>', this.dataPatient)
+      this.fullname = this.dataPatient.firstName + ' ' + this.dataPatient.lastName
+      if (this.dataPatient.gender === 'MALE') {
+        this.sex = 'ชาย'
+      } else {
+        this.sex = 'หญิง'
+      }
+    }
+  },
+  computed: {
+    dashboardReady () {
+      // console.log('dashboardReady', this.$store.state.DashboardAPI.dashboard_ready )
+      return this.$store.state.dashboardReady
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
+.dashboard-loader {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 75px;
+  height: 45px;
+  border-left: 4px solid #456;
+  border-bottom: 4px solid #456;
+}
 
+.dashboard-loader:after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 75%;
+  border-radius: 2px;
+  background-color: #ecb200;
+  right: 8px;
+  bottom: 6px;
+  animation: chart-anim 2.5s linear infinite;
+}
+
+.dashboard-loader > .bars,
+.dashboard-loader > .bars:before,
+.dashboard-loader > .bars:after {
+  content: "";
+  position: absolute;
+  bottom: 6px;
+  width: 8px;
+  height: 75%;
+  border-radius: 2px;
+  background-color: #1e812b;
+  left: 6px;
+}
+
+.dashboard-loader > .bars:before,
+.dashboard-loader > .bars:after {
+  bottom: 0;
+  background-color: #1862a9;
+  left: 16px;
+  height: 80%;
+}
+
+.dashboard-loader > .bars:after {
+  background-color: #a82c22;
+  left: 32px;
+  height: 110%;
+}
+
+.dashboard-loader > .bars {
+  animation: chart-anim 1.5s linear infinite;
+}
+
+.dashboard-loader > .bars:before {
+  animation: chart-anim 2s linear infinite;
+}
+
+.dashboard-loader > .bars:after {
+  animation: chart-anim 3s linear infinite;
+}
+
+.dashboard-loader > .text {
+  position: absolute;
+  white-space: nowrap;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: text-anim 1s ease infinite;
+  opacity: 1;
+}
+@keyframes chart-anim {
+  50% {
+    height: 25%;
+  }
+}
+@keyframes text-anim {
+  50% {
+    opacity: 0.5;
+  }
+}
 </style>

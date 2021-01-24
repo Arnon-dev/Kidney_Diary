@@ -46,14 +46,14 @@ export default {
   data () {
     return {
       ListNavbar: [
+        // { key: '1',
+        //   icon: 'dot-chart',
+        //   name: 'ภาพรวม',
+        //   path: 'admin'
+        // },
         { key: '1',
-          icon: 'dot-chart',
-          name: 'ภาพรวม',
-          path: 'admin'
-        },
-        { key: '2',
           icon: 'profile',
-          name: 'รายชื่อผู้ป่วย',
+          name: 'รายชื่อคนไข้',
           path: 'listuser'
         },
       ],
@@ -76,13 +76,16 @@ export default {
       }
     },
     pathNav () {
-      if (this.$router.currentRoute.name === 'admin') {
+      if (this.$router.currentRoute.name === 'listuser') {
         this.defaultPath = 1
-      } else if (this.$router.currentRoute.name === 'listuser') {
+      } else if (this.$router.currentRoute.name === 'admin') {
         this.defaultPath = 2
       }
     },
     logout () {
+      localStorage.removeItem('kidnryData')
+      localStorage.removeItem('PatientID')
+      localStorage.removeItem('dataPatient')
       this.$router.push('/').catch(() => {})
     }
   }

@@ -2,10 +2,10 @@
   <div>
     <v-row justify="center" align="center">
       <v-col cols="12" md="12" sm="12">
-        <h1>รายชื่อผู้ป่วย</h1>
+        <h1>รายชื่อคนไข้</h1>
       </v-col>
       <v-col cols="12" md="12" sm="12" class="pb-5">
-        <a-input style="width: 35%" v-model="search" placeholder="Search Patient">
+        <a-input style="width: 35%" v-model="search" placeholder="ค้นหาข้อมูลคนไข้">
           <a-icon slot="suffix" type="search" />
         </a-input>
       </v-col>
@@ -13,19 +13,23 @@
         <v-card>
           <v-data-table
            :headers="headers"
-           :items="desserts"
+           :items="DataPatient"
            :search="search"
            @page-count="pageCount = $event"
            :page.sync="page"
            :items-per-page="itemsPerPage"
            hide-default-footer
-           no-data-text="No Patient data"
+           no-data-text="ไม่มีข้อมูลคนไข้"
+           no-results-text="ไม่ค้นพบข้อมูลคนไข้"
           >
+            <template v-slot:[`item.fullname`]="{ item }">
+              <span>{{ item.firstName }} {{ item.lastName }}</span>
+            </template>
             <template v-slot:[`item.action`]="{ item }">
               <v-icon
                medium
                class="ml-5" 
-               @click="detailUser(item)"
+               @click="detailUser(item.id)"
               >
                 mdi-clipboard-search-outline
               </v-icon>
@@ -41,6 +45,7 @@
 </template>
 
 <script>
+import { Decode, Encode } from '@/services'
 export default {
   data () {
     return {
@@ -48,110 +53,72 @@ export default {
       pageCount: 5,
       page: 1,
       itemsPerPage: 10,
+      hospitalID: null,
+      kidneyData: [],
       headers: [
         {
           text: 'ลำดับ',
           align: 'start',
-          sortable: false,
-          value: 'name',
+          sortable: true,
+          value: 'id',
         },
-        { text: 'ชื่อ', value: 'calories', align: 'center' },
-        { text: 'นามสกุล', value: 'fat', align: 'center' },
-        { text: 'เพศ', value: 'carbs', align: 'center' },
-        { text: 'อายุ', value: 'protein', align: 'center' },
-        { text: 'โรงพยาบาล', value: 'iron', align: 'center' },
+        { text: 'ชื่อ - นามสกุล', value: 'fullname', align: 'center', sortable: true },
+        { text: 'เพศ', value: 'gender', align: 'center', sortable: true },
+        { text: 'อายุ', value: 'age', align: 'center', sortable: true },
+        { text: 'โรงพยาบาล', value: 'hospitalName', align: 'center', sortable: true },
         { text: 'รายละเอียด', value: 'action'}
       ],
-      desserts: [
-        {
-          name: 'Frozen Yogurt',
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: '1%',
-        },
-        {
-          name: 'Ice cream sandwich',
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: '1%',
-        },
-        {
-          name: 'Eclair',
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: '7%',
-        },
-        {
-          name: 'Cupcake',
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: '8%',
-        },
-        {
-          name: 'Gingerbread',
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          iron: '16%',
-        },
-        {
-          name: 'Jelly bean',
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: '0%',
-        },
-        {
-          name: 'Lollipop',
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: '2%',
-        },
-        {
-          name: 'Honeycomb',
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          iron: '45%',
-        },
-        {
-          name: 'Donut',
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          iron: '22%',
-        },
-        {
-          name: 'KitKat',
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          iron: '6%',
-        },
-      ],
+      DataPatient: [],
+      DataAll: []
     }
   },
   created () {
     this.$EventBus.$emit('pathNav')
+    if (Object.prototype.hasOwnProperty.call(localStorage, 'kidnryData')) {
+      this.kidneyData = JSON.parse(Decode.decode(localStorage.getItem('kidnryData')))
+      this.hospitalID = this.kidneyData.hospitalId
+      this.getUserByHopitalID()
+    } else {
+      this.kidneyData = []
+    }
   },
   methods: {
-    detailUser () {
+    detailUser (val) {
+      // console.log('Data id Patient=====>',val)
+      localStorage.setItem('PatientID', Encode.encode(val))
+      localStorage.setItem('dataPatient',  Encode.encode(this.DataAll))
       this.$router.push('detailpatient').catch(() => {})
+    },
+    async getUserByHopitalID () {
+      var data = {
+        hospitalID: this.hospitalID
+      }
+      await this.$store.dispatch('actionsGetAllUserByHospitalID', data)
+      var response = await this.$store.state.stateGetAllUserByHospital
+      console.log('response Get All User =====>', response)
+      if (response.response_status === 'SUCCESS') {
+        this.DataAll = response.data
+        // console.log('Data All', this.DataAll)
+        if (response.data !== undefined) {
+          var datauser = response.data.users
+          this.DataPatient = datauser.filter(element => {
+            element.hospitalName = response.data.hospital.name
+            element.hospitalCode = response.data.hospital.code
+            return element
+          });
+          // this.DataPatient.hospitalName = response.data.hospital.name
+          // console.log(this.DataPatient)
+        } else {
+          this.DataPatient = []
+        }
+      } else {
+        this.$swal.fire({
+          icon: 'error',
+          title: `${response.message}`,
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
     }
   }
 }

@@ -1,5 +1,14 @@
 import axios from 'axios'
+import { Decode } from '@/services'
 
+const GetToken = () => {
+  const kidnryData = JSON.parse(Decode.decode(localStorage.getItem('kidnryData')))
+  console.log(kidnryData)
+  const auth = {
+    headers: { Authorization: `Bearer ${kidnryData.token}` }
+  }
+  return auth
+}
 export default {
   // Login
   async Login (val) {
@@ -26,6 +35,16 @@ export default {
   async GetAllUser () {
     try {
       const response = await axios.get(`https://kidney-diary-service.yuzudigital.com/admins`)
+      return response.data
+    } catch (error) {
+      return error.response  
+    }
+  },
+  // Get All User By Hospital ID
+  async GetAllUserByHospitalID (val) {
+    console.log(val)
+    try {
+      const response = await axios.get(`https://kidney-diary-service.yuzudigital.com/users?hospitalId=` + val.hospitalID)
       return response.data
     } catch (error) {
       return error.response  
@@ -175,6 +194,43 @@ export default {
     try {
       const response = await axios.delete('http://localhost:8080/diaries' + val.id)
       return response
+    } catch (error) {
+      return error.response
+    }
+  },
+  // DewellChart
+  async GetDewellChart () {
+    const auth = await GetToken()
+    console.log(auth)
+    var typechart = 'getDewellChart'
+    try {
+      const response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart, auth)
+      console.log('GetDewellChart ===========>', response)
+      return response.data
+    } catch (error) {
+      return error.response
+    }
+  },
+  // ProfitChart
+  async GetProfitChart () {
+    const auth = await GetToken()
+    var typechart = 'getProfitChart'
+    try {
+      const response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart, auth)
+      console.log('GetProfitChart ===========>', response.data)
+      return response.data
+    } catch (error) {
+      return error.response
+    }
+  },
+  // WeightChart
+  async GetWeightChart () {
+    const auth = await GetToken()
+    var typechart = 'getWeightChart'
+    try {
+      const response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart, auth)
+      console.log('GetWeightChart ===========>', response)
+      return response.data
     } catch (error) {
       return error.response
     }

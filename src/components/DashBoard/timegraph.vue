@@ -3,7 +3,7 @@
     <p class='title font-weight-bold black--text mx-2'>Dwell Time & Fill Time & Drain Time</p>
     <v-row dense no-gutters>
       <v-col xs='12'>
-        <apexchart type="line" width='100%' height="300" :options="chartOptions" :series="series"></apexchart>
+        <apexchart type="line" width='100%' height="300" :options="chartOptions" :series="timeSeries"></apexchart>
       </v-col>
     </v-row>
   </v-container>
@@ -93,9 +93,16 @@ export default {
           ]
         },
         grid: {
-            borderColor: '#f1f1f1',
-        }
+          borderColor: '#f1f1f1',
+        },
+        noData: {
+          text: 'ไม่มีข้อมูล'
+        },
       }
+    },
+    timeSeries () {
+      var series = [this.$store.state.stateGetDewellChart]
+      return series
     }
   }
 }

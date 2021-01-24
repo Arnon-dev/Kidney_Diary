@@ -105,10 +105,10 @@ export default {
         // console.log('resposne', response.data.admin)
         if (response.response_status === 'SUCCESS') {
           if (response.data.admin.type === 'ADMIN') {
-            localStorage.setItem('kidnryData', Encode.encode(response.data.admin))
+            localStorage.setItem('kidnryData', Encode.encode(response.data))
             this.$router.push("admin").catch(() => {})
           } else if (response.data.admin.type === 'SUPERADMIN') {
-            localStorage.setItem('kidnryData', Encode.encode(response.data.admin))
+            localStorage.setItem('kidnryData', Encode.encode(response.data))
             this.$router.push("superadmin").catch(() => {})
           }
         } else {

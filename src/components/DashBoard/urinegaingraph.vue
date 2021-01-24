@@ -9,7 +9,7 @@
         <v-btn id="all" @click="updateData('all')" :class="{active: selection==='all'}" text dense>ALL</v-btn>
       </v-col>
       <v-col cols="12" md='12'>
-        <apexchart type="area" height="350" ref="chart" :options="chartOptions" :series="series"></apexchart>
+        <apexchart type="area" height="350" ref="chart" :options="chartOptions" :series="UrineSeries"></apexchart>
       </v-col>
     </v-row>
   </v-container>
@@ -365,7 +365,14 @@ export default {
             stops: [0, 100]
           }
         },
+        noData: {
+          text: 'ไม่มีข้อมูล'
+        },
       }
+    },
+    UrineSeries () {
+      var series = [this.$store.state.stateGetProfitChart]
+      return series
     }
   },
   methods: {
