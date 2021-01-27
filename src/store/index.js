@@ -14,6 +14,7 @@ export default new Vuex.Store({
     stateRegisterUser: [],
     stateGetAllUser: [],
     stateGetAllUserByHospital: [],
+    stateUpdateAdmin: [],
     // Hospital (Add, Update, GetAll, GetOne, Delete)
     stateAddHospital: [],
     stateUpdateHospital: [],
@@ -45,6 +46,10 @@ export default new Vuex.Store({
     // Register Mutation
     mutationRegister (state, data) {
       state.stateRegisterUser = data
+    },
+    // Update Admin Mutation
+    mutationUpdateAdmin (state, data) {
+      state.stateUpdateAdmin = data
     },
     // Get All User Mutation
     mutationGetAllUser (state, data) {
@@ -123,6 +128,11 @@ export default new Vuex.Store({
     async actionsRegister (context, access) {
       const axiosRegister = await AxiosAPI.Register(access)
       await context.commit('mutationRegister', axiosRegister)
+    },
+    // Update Admin Actions
+    async actionsUpdateAdmin (context, access) {
+      const axiosUpdateAdmin = await AxiosAPI.UpdateAdmin(access)
+      await context.commit('mutationUpdateAdmin', axiosUpdateAdmin)
     },
     // Get All User Action
     async actionsGetAllUser (context) {

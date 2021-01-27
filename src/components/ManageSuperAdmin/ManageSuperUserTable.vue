@@ -33,7 +33,7 @@
             </template>
             <template v-slot:[`item.active`]="{ item }">
               <v-row no-gutters justify="center">
-                <v-switch v-model="item.check" dense  @change="ChangeStatus(item)"></v-switch>
+                <v-switch v-model="item.activeFlag" dense  @change="ChangeStatus(item)"></v-switch>
               </v-row>
             </template>
           </v-data-table>
@@ -91,6 +91,44 @@ export default {
         // console.log('data clean', data)
         this.itemsSuperAdmin = data
       }
+    },
+    async ChangeStatus (val) {
+      this.$swal.fire({
+        title: 'คุณต้องการที่จะเปลี่ยนสิทธิ์ผู้ใช้คนนี้หรือไม่',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'ต้องการ',
+        cancelButtonText: 'ไม่ต้องการ'
+      }).then(async(result) => {
+        if (result.isConfirmed) {
+          var data = {
+            id: val.id,
+            email: val.email,
+            firstName: val.firstName,
+            lastName: val.lastName,
+            position: val.position,
+            image: val.image,
+            type: val.type,
+            activeFlag: val.activeFlag === true ? 1 : 0,
+            hospitalId: val.hospitalId
+          }
+          // console.log('data before update ===>', data)
+          await this.$store.dispatch('actionsUpdateAdmin', data)
+          var response = await this.$store.state.stateUpdateAdmin
+          // console.log('response after update ====>', response)
+          if (response.response_status === 'SUCCESS') {
+            await this.GetAllSuperAdmin()
+            this.$swal.fire({ icon: 'success', title: 'เปลี่ยนสิทธิ์สำเร็จ', showConfirmButton: false, timer: 1500 })
+          } else {
+            await this.GetAllSuperAdmin()
+            this.$swal.fire({ icon: 'error', title: 'เปลี่ยนสิทธิ์ไม่สำเร็จ', showConfirmButton: false, timer: 1500 })
+          }
+        } else {
+          await this.GetAllSuperAdmin()
+        }
+      })
     }
   }
 }

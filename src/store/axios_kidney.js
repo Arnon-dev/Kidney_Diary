@@ -31,6 +31,26 @@ export default {
       return error.response  
     }
   },
+  // Update Admin
+  async UpdateAdmin (val) {
+    const data = {
+      id: val.id,
+      email: val.email,
+      firstName: val.firstName,
+      lastName: val.lastName,
+      position: val.position,
+      image: val.image,
+      type: val.type,
+      activeFlag: val.activeFlag,
+      hospitalId: val.hospitalId
+    }
+    try {
+      const response = await axios.put(`https://kidney-diary-service.yuzudigital.com/admins/` + val.id, data)
+      return response.data
+    } catch (error) {
+      return error.response  
+    }
+  },
   // Get All User
   async GetAllUser () {
     try {
