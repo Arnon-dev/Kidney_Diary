@@ -76,7 +76,8 @@ export default {
     this.$EventBus.$emit('pathNav')
     if (Object.prototype.hasOwnProperty.call(localStorage, 'kidnryData')) {
       this.kidneyData = JSON.parse(Decode.decode(localStorage.getItem('kidnryData')))
-      this.hospitalID = this.kidneyData.hospitalId
+      // console.log('kidneyData', this.kidneyData)
+      this.hospitalID = this.kidneyData.admin.hospitalId
       this.getUserByHopitalID()
     } else {
       this.kidneyData = []
@@ -93,9 +94,10 @@ export default {
       var data = {
         hospitalID: this.hospitalID
       }
+      console.log(data)
       await this.$store.dispatch('actionsGetAllUserByHospitalID', data)
       var response = await this.$store.state.stateGetAllUserByHospital
-      console.log('response Get All User =====>', response)
+      // console.log('response Get All User =====>', response)
       if (response.response_status === 'SUCCESS') {
         this.DataAll = response.data
         // console.log('Data All', this.DataAll)

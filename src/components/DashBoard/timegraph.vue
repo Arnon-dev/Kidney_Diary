@@ -48,7 +48,7 @@ export default {
           dashArray: [0, 8, 5]
         },
         title: {
-          text: 'Page Statistics',
+          text: 'Weight',
           align: 'left'
         },
         legend: {
@@ -63,9 +63,11 @@ export default {
           }
         },
         xaxis: {
-          categories: ['01 Jan', '02 Jan', '03 Jan', '04 Jan', '05 Jan', '06 Jan', '07 Jan', '08 Jan', '09 Jan',
-            '10 Jan', '11 Jan', '12 Jan'
-          ],
+          labels: {
+            formatter: function(value) {
+              return 'round ' + value
+            }
+          }
         },
         tooltip: {
           y: [
@@ -101,7 +103,9 @@ export default {
       }
     },
     timeSeries () {
-      var series = [this.$store.state.stateGetDewellChart]
+      var resposne = this.$store.state.stateGetDewellChart
+      var series = resposne.data
+      // console.log('data series', series)
       return series
     }
   }

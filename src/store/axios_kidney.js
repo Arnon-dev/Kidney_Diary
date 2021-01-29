@@ -2,10 +2,10 @@ import axios from 'axios'
 import { Decode } from '@/services'
 
 const GetToken = () => {
-  const kidnryData = JSON.parse(Decode.decode(localStorage.getItem('kidnryData')))
-  console.log(kidnryData)
+  const kidneyData = JSON.parse(Decode.decode(localStorage.getItem('kidnryData')))
+  console.log(kidneyData)
   const auth = {
-    headers: { Authorization: `Bearer ${kidnryData.token}` }
+    headers: { Authorization: `Bearer ${kidneyData.token}` }
   }
   return auth
 }
@@ -219,37 +219,91 @@ export default {
     }
   },
   // DewellChart
-  async GetDewellChart () {
+  async GetDewellChart (val) {
     const auth = await GetToken()
-    console.log(auth)
-    var typechart = 'getDewellChart'
+    var typechart = 'dwellChart'
     try {
-      const response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart, auth)
-      console.log('GetDewellChart ===========>', response)
+      var response
+      if (val.startDate === null && val.endDate === null) {
+        response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart, auth)
+        // console.log('GetDewellChart ===========>', response.data)
+      } else {
+        response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart + `&from=` + val.startDate + `&to=` + val.endDate, auth)
+        // console.log('GetDewellChartDate ===========>', response.data)
+      }
       return response.data
     } catch (error) {
       return error.response
     }
   },
   // ProfitChart
-  async GetProfitChart () {
+  async GetProfitChart (val) {
     const auth = await GetToken()
-    var typechart = 'getProfitChart'
+    var typechart = 'profitChart'
     try {
-      const response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart, auth)
-      console.log('GetProfitChart ===========>', response.data)
+      var response
+      if (val.startDate === null && val.endDate === null) {
+        response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart, auth)
+        // console.log('GetProfitChart ===========>', response.data)
+      } else {
+        response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart + `&from=` + val.startDate + `&to=` + val.endDate, auth)
+        // console.log('GetProfitChartDate ===========>', response.data)
+      }
       return response.data
     } catch (error) {
       return error.response
     }
   },
   // WeightChart
-  async GetWeightChart () {
+  async GetWeightChart (val) {
     const auth = await GetToken()
-    var typechart = 'getWeightChart'
+    var typechart = 'weightChart'
+    // console.log('val', val)
     try {
-      const response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart, auth)
-      console.log('GetWeightChart ===========>', response)
+      var response
+      if (val.startDate === null && val.endDate === null) {
+        response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart, auth)
+        // console.log('GetWeightChart ===========>', response.data)
+      } else {
+        response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart + `&from=` + val.startDate + `&to=` + val.endDate, auth)
+        // console.log('GetWeightChartDate ===========>', response.data)
+      }
+      return response.data
+    } catch (error) {
+      return error.response
+    }
+  },
+  async GetDewellChartDate (val) {
+    const auth = await GetToken()
+    // console.log(auth)
+    var typechart = 'dwellChart'
+    try {
+      const response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart + `&from=` + val.startDate + `&to=` + val.endDate, auth)
+      // console.log('GetDewellChart ===========>', response)
+      return response.data
+    } catch (error) {
+      return error.response
+    }
+  },
+  async GetProfitCharDate (val) {
+    const auth = await GetToken()
+    // console.log(auth)
+    var typechart = 'profitChart'
+    try {
+      const response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart + `&from=` + val.startDate + `&to=` + val.endDate, auth)
+      // console.log('GetDewellChart ===========>', response)
+      return response.data
+    } catch (error) {
+      return error.response
+    }
+  },
+  async GetWeightChartDate (val) {
+    const auth = await GetToken()
+    // console.log(auth)
+    var typechart = 'weightChart'
+    try {
+      const response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart + `&from=` + val.startDate + `&to=` + val.endDate, auth)
+      // console.log('GetDewellChart ===========>', response)
       return response.data
     } catch (error) {
       return error.response

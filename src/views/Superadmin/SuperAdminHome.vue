@@ -9,8 +9,14 @@
             </a-breadcrumb>
           </v-row>
         </v-col>
-        <v-col cols="7" class="pt-7 pr-5">
+        <v-col cols="7" class="pt-2 pr-5">
           <v-row justify="end" align="center">
+            <v-avatar size="25">
+              <v-img :src="`${image}`" v-if="image !== null"/>
+              <v-img src="@/assets/noprofile.png" v-else />
+            </v-avatar>
+            <span class="pt-2 pl-3 pr-1 pb-2">{{ nameUser }} </span>
+            <v-divider vertical class="mx-2" height='50px'></v-divider>
             <v-btn text @click="logout()">
               <v-icon>mdi-logout</v-icon> ออกจากระบบ
             </v-btn>
@@ -42,6 +48,7 @@
 </template>
 
 <script>
+import { Decode } from '@/services'
 export default {
   data () {
     return {
@@ -62,11 +69,17 @@ export default {
         //   path: 'listuseradmin'
         // }
       ],
-      defaultPath: 1
+      defaultPath: 1,
+      nameUser: '',
+      image: ''
     }
   },
   created () {
     this.$EventBus.$on('pathNavSuperAdmin', this.pathNavSuperAdmin)
+    const kidneyData = JSON.parse(Decode.decode(localStorage.getItem('kidnryData')))
+    // console.log('kidneydata ===>', kidneyData)
+    this.nameUser = kidneyData.admin.firstName + ' ' + kidneyData.admin.lastName
+    this.image = kidneyData.admin.image
     this.pathNavSuperAdmin()
   },
   methods: {

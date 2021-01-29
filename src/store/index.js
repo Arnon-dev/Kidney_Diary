@@ -29,10 +29,13 @@ export default new Vuex.Store({
     stateDeleteDiary: [],
     // Time Graph
     stateGetDewellChart: [],
+    stateGetDewellChartData: [],
     // Urine Gain Graph
     stateGetProfitChart: [],
+    stateGetProfitChartDate: [],
     // BloodPresure Graph
     stateGetWeightChart: [],
+    stateGetWeightChartDate: [],
     dashboardReady: false
   },
   mutations: {
@@ -117,6 +120,15 @@ export default new Vuex.Store({
     DashboardReady (state, status) {
       state.dashboardReady = status
     },
+    mutationGetDewellChartDate (state, data) {
+      state.stateGetWeightChart = data
+    },
+    mutationGetProfitChartDate (state, data) {
+      state.stateGetProfitChartDate = data
+    },
+    mutationGetWeightChartData (state, data) {
+      state.stateGetWeightChartDate = data
+    }
   },
   actions: {
     // Login Actions
@@ -196,7 +208,7 @@ export default new Vuex.Store({
     },
     // Graph Actions
     async actionGetDewellChart (context) {
-      const axiosGetData = await AxiosAPI.GetDewellChar()
+      const axiosGetData = await AxiosAPI.GetDewellChart()
       await context.commit('mutationGetDewellChart', axiosGetData)
     },
     async actionGetProfitChart (context) {
@@ -207,10 +219,10 @@ export default new Vuex.Store({
       const axiosGetData = await AxiosAPI.GetWeightChart()
       await context.commit('mutationGetWeightChart', axiosGetData)
     },
-    async actionGetAllChart (context) {
-      var axiosGetDewellChart = await AxiosAPI.GetDewellChart()
-      var axiosGetProfitChart = await AxiosAPI.GetProfitChart()
-      var axiosGetWeightChart = await AxiosAPI.GetWeightChart()
+    async actionGetAllChart (context, access) {
+      var axiosGetDewellChart = await AxiosAPI.GetDewellChart(access)
+      var axiosGetProfitChart = await AxiosAPI.GetProfitChart(access)
+      var axiosGetWeightChart = await AxiosAPI.GetWeightChart(access)
       var data = {
         DewellChart: axiosGetDewellChart,
         ProfitChart: axiosGetProfitChart,
@@ -218,6 +230,18 @@ export default new Vuex.Store({
       }
       await context.commit('mutationGetAllData', data)
       await context.commit('DashboardReady', true)
+    },
+    async actionGetDewellChartDate (context, access) {
+      var resposne = await AxiosAPI.GetDewellChartDate(access)
+      await context.commit('mutationGetDewellChartDate', resposne)
+    },
+    async actionGetProfitChartDate (context, access) {
+      var resposne = await AxiosAPI.GetProfitCharDate(access)
+      await context.commit('mutationGetProfitChartDate', resposne)
+    },
+    async actionGetWeightChartDate (context, access) {
+      var resposne = await AxiosAPI.GetWeightChartDate(access)
+      await context.commit('mutationGetWeightChartData', resposne)
     }
   },
   modules: {}

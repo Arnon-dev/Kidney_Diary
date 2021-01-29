@@ -13,6 +13,7 @@
               <v-col cols="12" md="2" class="pl-3 pb-5"><span class="f-right">ชื่อ-นามสกุล</span></v-col>
               <v-col cols="12" md="4" class="pl-3">
                 <v-text-field outlined v-model="fullname" dense disabled></v-text-field>
+                <!-- <span>{{ fullname }}</span> -->
               </v-col>
               <!-- Hospital -->
               <v-col cols="12" md="1" class="pl-3 pb-5"><span class="f-right">โรงพยาบาล</span></v-col>
@@ -79,19 +80,53 @@
                 <h2>แดชบอร์ด</h2>
               </v-col>
               <v-col cols="12" class="mb-5"><v-divider></v-divider></v-col>
+              <v-col cols="12" md='12' lg='12' sm='12' xs='12'>
+                <v-row no-gutters justify="start" align="center">
+                  <v-col cols='12' md="9" sm='12' xs='12'>
+                    <span class="pr-2 pl-2">จาก</span>
+                    <a-date-picker
+                     v-model="startValue"
+                     :disabled-date="disabledStartDate"
+                     show-time
+                     format="YYYY-MM-DD"
+                     placeholder="เลือกวันที่เริ่มต้น"
+                     @openChange="handleStartOpenChange"
+                    />
+                    <span class="pl-2 pr-2">ถึง</span>
+                    <a-date-picker
+                     v-model="endValue"
+                     :disabled-date="disabledEndDate"
+                     show-time
+                     format="YYYY-MM-DD"
+                     placeholder="เลือกวันที่สิ้นสุด"
+                     :open="endOpen"
+                     @openChange="handleEndOpenChange"
+                    />
+                    <v-btn @click="sendDate" class="ml-2" color="success" small>ตกลง</v-btn>
+                    <v-btn @click="clearDate" class="ml-2" color="error" small>เคลียร์ค่า</v-btn>
+                  </v-col>
+                  <v-col cols='12' md="3" sm='12' xs='12'>
+                    <v-row no-gutters justify="start" align="center">
+                      <span class="pl-2">เลือกแบบดูเฉพาะ :</span>
+                      <v-btn @click="oneDate" class="ml-2" small>วันนี้</v-btn>
+                      <v-btn @click="AllDate" class="ml-2" small>ดูทั้งหมด</v-btn>
+                    </v-row>
+                  </v-col>
+                </v-row>
+              </v-col>
               <v-col cols='12' md='12' lg='6' sm='12' xs='12'>
                 <v-card class="ma-2 pa-2" tile max-height='100%' height="100%" outlined>
-                  <Urinegraph/>
+                  <Urinegraph :startDate='startValue' :endDate='endValue'/>
                 </v-card>
               </v-col>
               <v-col cols='12' md='12' lg='6' sm='12' xs='12'>
                 <v-card class="ma-2 pa-2" tile max-height='100%' height="100%" outlined>
-                  <BloodPresure/>
+                  <BloodPresure :startDate='startValue' :endDate='endValue'/>
                 </v-card>
               </v-col>
               <v-col cols="12" md='12' lg='12' sm='12' xs='12'>
                 <v-card class="ma-2 pa-2" tile max-height='100%' height="100%" outlined>
-                  <Timegraph/>
+                  <Timegraph :startDate='startValue' :endDate='endValue'/>
                 </v-card>
               </v-col>
             </v-row>
@@ -120,6 +155,7 @@
 
 <script>
 import { Decode } from '@/services'
+import moment from 'moment'
 export default {
   components: {
     Urinegraph: () => import('@/components/DashBoard/urinegaingraph.vue'),
@@ -145,7 +181,10 @@ export default {
       note: '',
       dataUser: [],
       items: [],
-      dataPatient: []
+      dataPatient: [],
+      startValue: null,
+      endValue: null,
+      endOpen: false
     }
   },
   async created () {
@@ -154,7 +193,13 @@ export default {
       this.dataUser = JSON.parse(Decode.decode(localStorage.getItem('dataPatient')))
       this.PatientID = JSON.parse(Decode.decode(localStorage.getItem('PatientID')))
       // console.log(this.dataPatient)
-      await this.$store.dispatch('actionGetAllChart')
+      if (this.startValue === null && this.endValue === null) {
+        var data = {
+          startDate: this.startValue,
+          endDate: this.endValue
+        }
+        await this.$store.dispatch('actionGetAllChart', data)
+      }
       // await this.$store.dispatch('actionGetProfitChart')
       // await this.$store.dispatch('actionGetWeightChart')
       this.getUserdata()
@@ -182,6 +227,63 @@ export default {
       } else {
         this.sex = 'หญิง'
       }
+    },
+    disabledStartDate(startValue) {
+      const endValue = this.endValue;
+      if (!startValue || !endValue) {
+        return false;
+      }
+      return startValue.valueOf() > endValue.valueOf();
+    },
+    disabledEndDate(endValue) {
+      const startValue = this.startValue;
+      if (!endValue || !startValue) {
+        return false;
+      }
+      return startValue.valueOf() >= endValue.valueOf();
+    },
+    handleStartOpenChange(open) {
+      if (!open) {
+        this.endOpen = true;
+      }
+    },
+    handleEndOpenChange(open) {
+      this.endOpen = open;
+    },
+    async sendDate () {
+      var data = {
+        startDate: this.startValue.format('YYYY-MM-DD'),
+        endDate: this.endValue.format('YYYY-MM-DD')
+      }
+      // console.log('data Date====>', data)
+      await this.$store.dispatch('actionGetAllChart', data)
+    },
+    async clearDate ()  {
+      this.startValue = null
+      this.endValue = null
+      var data = {
+        startDate: this.startValue,
+        endDate: this.endValue
+      }
+      await this.$store.dispatch('actionGetAllChart', data)
+    },
+    async oneDate () {
+      var data = {
+        startDate: moment().format('YYYY-MM-DD'),
+        endDate: moment().format('YYYY-MM-DD')
+      }
+      console.log(data)
+      await this.$store.dispatch('actionGetAllChart', data)
+    },
+    async AllDate () {
+      this.startValue = null
+      this.endValue = null
+      var data = {
+        startDate: this.startValue,
+        endDate: this.endValue
+      }
+      // console.log(data)
+      await this.$store.dispatch('actionGetAllChart', data)
     }
   },
   computed: {
