@@ -82,10 +82,10 @@ export default {
       checklogin: true,
       lazy: false,
       rules: {
-        password: [v => (v || '').length > 0 || 'Password is required'],
+        password: [v => (v || '').length > 0 || 'กรุณาใส่รหัสผ่าน'],
         emailRules: [
-          v => !!v || 'E-mail is required',
-          v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+          v => !!v || 'กรุณาใส่อีเมล',
+          v => /.+@.+\..+/.test(v) || 'กรุณาใส่อีเมลให้ถูกต้อง',
         ],
       },
     }

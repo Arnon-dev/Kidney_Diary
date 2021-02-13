@@ -112,6 +112,12 @@ export default {
 }
 </script>
 
+<style scoped>
+.v-divider--vertical {
+  margin-top: 10px;
+  height: 50px;
+}
+</style>
 <style>
 .ant-layout-header {
   padding: 0px !important;
