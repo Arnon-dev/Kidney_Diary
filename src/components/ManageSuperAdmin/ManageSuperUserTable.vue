@@ -23,8 +23,11 @@
            @page-count="pageCount = $event"
            :page.sync="page"
            :items-per-page="itemsPerPage"
+           :loading="loadingData"
+           loading-text="กำลังโหลดข้อมูลแอดมิน"
            hide-default-footer
-           no-data-text="No Patient data"
+           no-data-text="ไม่มีข้อมูลแอดมิน"
+           no-results-text="ไม่ค้นพบข้อมูลแอดมิน"
           >
             <template v-slot:[`item.fullname`]="{ item }">
               <v-row no-gutters justify="center">
@@ -55,6 +58,7 @@ export default {
   data () {
     return {
       search: '',
+      loadingData: true,
       pageCount: 5,
       page: 1,
       itemsPerPage: 10,
@@ -88,6 +92,7 @@ export default {
       // console.log('respose', response)
       if (response.response_status === 'SUCCESS') {
         var data = response.data.filter(item => item.type === 'SUPERADMIN')
+        this.loadingData = false
         // console.log('data clean', data)
         this.itemsSuperAdmin = data
       }

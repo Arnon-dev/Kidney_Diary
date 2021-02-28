@@ -3,7 +3,7 @@ import { Decode } from '@/services'
 
 const GetToken = () => {
   const kidneyData = JSON.parse(Decode.decode(localStorage.getItem('kidnryData')))
-  console.log(kidneyData)
+  // console.log(kidneyData)
   const auth = {
     headers: { Authorization: `Bearer ${kidneyData.token}` }
   }
@@ -62,7 +62,7 @@ export default {
   },
   // Get All User By Hospital ID
   async GetAllUserByHospitalID (val) {
-    console.log(val)
+    // console.log(val)
     try {
       const response = await axios.get(`https://kidney-diary-service.yuzudigital.com/users?hospitalId=` + val.hospitalID)
       return response.data
@@ -277,6 +277,18 @@ export default {
     const auth = await GetToken()
     // console.log(auth)
     var typechart = 'dwellChart'
+    try {
+      const response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart + `&from=` + val.startDate + `&to=` + val.endDate, auth)
+      // console.log('GetDewellChart ===========>', response)
+      return response.data
+    } catch (error) {
+      return error.response
+    }
+  },
+  async GetfillDrainChart (val) {
+    const auth = await GetToken()
+    // console.log(auth)
+    var typechart = 'fillDrainChart'
     try {
       const response = await axios.get(`https://kidney-diary-service.yuzudigital.com/charts?type=` + typechart + `&from=` + val.startDate + `&to=` + val.endDate, auth)
       // console.log('GetDewellChart ===========>', response)

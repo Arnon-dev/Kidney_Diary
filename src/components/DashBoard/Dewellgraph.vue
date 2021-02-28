@@ -1,9 +1,9 @@
 <template>
   <v-container class="pa-2">
-    <p class='title font-weight-bold black--text mx-2'>Dwell Time & Fill Time & Drain Time</p>
+    <p class='title font-weight-bold black--text mx-2'>Dwell Time</p>
     <v-row dense no-gutters>
       <v-col xs='12'>
-        <apexchart type="line" width='100%' height="300" :options="chartOptions" :series="timeSeries"></apexchart>
+        <apexchart type="line" width='100%' height="300" :options="chartOptions" :series="DewellSeries"></apexchart>
       </v-col>
     </v-row>
   </v-container>
@@ -36,26 +36,27 @@ export default {
           height: 350,
           type: 'line',
           zoom: {
-            enabled: false
-          },
-        },
-        dataLabels: {
-          enabled: false
-        },
-        stroke: {
-          width: [5, 7, 5],
-          curve: 'straight',
-          dashArray: [0, 8, 5]
-        },
-        title: {
-          text: 'Weight',
-          align: 'left'
-        },
-        legend: {
-          tooltipHoverFormatter: function(val, opts) {
-            return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
+            autoScaleYaxis: true
           }
         },
+        dataLabels: {
+          enabled: true,
+          textAnchor: 'start',
+        },
+        // stroke: {
+        //   width: [5, 7, 5],
+        //   curve: 'straight',
+        //   dashArray: [0, 8, 5]
+        // },
+        // title: {
+        //   text: 'Weight',
+        //   align: 'left'
+        // },
+        // legend: {
+        //   tooltipHoverFormatter: function(val, opts) {
+        //     return val + ' - ' + opts.w.globals.series[opts.seriesIndex][opts.dataPointIndex] + ''
+        //   }
+        // },
         markers: {
           size: 0,
           hover: {
@@ -67,32 +68,22 @@ export default {
             formatter: function(value) {
               return 'round ' + value
             }
+          },
+          title: {
+            text: 'Round'
+          }
+        },
+        yaxis: {
+          title: {
+            text: 'Dwell (min)'
           }
         },
         tooltip: {
-          y: [
-            {
-              title: {
-                formatter: function (val) {
-                  return val;
-                }
-              }
-            },
-            {
-              title: {
-                formatter: function (val) {
-                  return val;
-                }
-              }
-            },
-            {
-              title: {
-                formatter: function (val) {
-                  return val;
-                }
-              }
+          y: {
+            formatter: function (val) {
+              return val + ' min'
             }
-          ]
+          }
         },
         grid: {
           borderColor: '#f1f1f1',
@@ -102,7 +93,7 @@ export default {
         },
       }
     },
-    timeSeries () {
+    DewellSeries () {
       var resposne = this.$store.state.stateGetDewellChart
       var series = resposne.data
       // console.log('data series', series)

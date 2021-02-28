@@ -45,15 +45,19 @@ export default {
           style: 'hollow',
         },
         yaxis: {
+          title: {
+            text: 'Weight (Kg) & Blood Presure (bpm)'
+          }
         },
         xaxis: {
           labels: {
             formatter: function(value) {
               return 'round ' + value
             }
+          },
+          title: {
+            text: 'Round'
           }
-        },
-        tooltip: {
         },
         noData: {
           text: 'ไม่มีข้อมูล'

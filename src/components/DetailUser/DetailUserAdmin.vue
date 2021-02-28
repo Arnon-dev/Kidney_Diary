@@ -10,64 +10,63 @@
               </v-col>
               <v-col cols="12" class="mb-5"><v-divider></v-divider></v-col>
               <!-- Name Patient -->
-              <v-col cols="12" md="2" class="pl-3 pb-5"><span class="f-right">ชื่อ-นามสกุล</span></v-col>
-              <v-col cols="12" md="4" class="pl-3">
+              <v-col cols="12" md="2" class="pl-3 pb-5" v-if="fullname !== null && fullname !== ''"><span class="f-right">ชื่อ-นามสกุล</span></v-col>
+              <v-col cols="12" md="4" class="pl-3" v-if="fullname !== null && fullname !== ''">
                 <v-text-field outlined v-model="fullname" dense disabled></v-text-field>
-                <!-- <span>{{ fullname }}</span> -->
               </v-col>
               <!-- Hospital -->
-              <v-col cols="12" md="1" class="pl-3 pb-5"><span class="f-right">โรงพยาบาล</span></v-col>
-              <v-col cols="12" md="4" class="pl-3">
+              <v-col cols="12" md="2" class="pl-3 pb-5" v-if="dataPatient.hospitalName !== null && dataPatient.hospitalName !== ''"><span class="f-right">โรงพยาบาล</span></v-col>
+              <v-col cols="12" md="4" class="pl-3 pr-2" v-if="dataPatient.hospitalName !== null && dataPatient.hospitalName !== ''">
                 <v-text-field outlined v-model="dataPatient.hospitalName" dense disabled></v-text-field>
               </v-col>
               <!-- sex -->
-              <v-col cols="12" md="2" class="pl-3 pb-5 pt-0" ><span class="f-right">เพศ</span></v-col>
-              <v-col cols="12" md="4" class="pl-3">
+              <v-col cols="12" md="2" class="pl-3 pb-5 pt-0" v-if="sex !== null && sex !== ''"><span class="f-right">เพศ</span></v-col>
+              <v-col cols="12" md="4" class="pl-3" v-if="sex !== null && sex !== ''">
                 <v-text-field outlined v-model="sex" dense disabled></v-text-field>
               </v-col>
               <!-- Start to Clean Kidney -->
-              <v-col cols="12" md="1" class="pl-3 pb-5 pt-0"><span class="f-right">วันที่วางสายท่อล้างไต</span></v-col>
-              <v-col cols="12" md="4" class="pl-3">
+              <v-col cols="12" md="2" class="pl-3 pb-5 pt-0" v-if="dataPatient.installationDate !== null && dataPatient.installationDate !== ''"><span class="f-right">วันที่วางสายท่อล้างไต</span></v-col>
+              <v-col cols="12" md="4" class="pl-3 pr-2" v-if="dataPatient.installationDate !== null && dataPatient.installationDate !== ''">
                 <v-text-field outlined v-model="dataPatient.installationDate" dense disabled></v-text-field>
               </v-col>
               <!-- Email -->
-              <v-col cols="12" md="2" class="pl-3 pb-5 pt-0"><span class="f-right">วันเดือนปีเกิด</span></v-col>
-              <v-col cols="12" md="4" class="pl-3">
+              <v-col cols="12" md="2" class="pl-3 pb-5 pt-0" v-if="dataPatient.dateOfBirth !== null && dataPatient.dateOfBirth !== ''"><span class="f-right">วันเดือนปีเกิด</span></v-col>
+              <v-col cols="12" md="4" class="pl-3" v-if="dataPatient.dateOfBirth !== null && dataPatient.dateOfBirth !== ''">
                 <v-text-field outlined v-model="dataPatient.dateOfBirth" dense disabled></v-text-field>
               </v-col>
               <!-- start Kidney -->
-              <v-col cols="12" md="1" class="pl-3 pb-5 pt-0"><span class="f-right">วันที่เริ่มล้างไตทางช่องท้อง</span></v-col>
-              <v-col cols="12" md="4" class="pl-3">
+              <v-col cols="12" md="2" class="pl-3 pb-5 pt-0" v-if="dataPatient.dateOfDialysis !== null && dataPatient.dateOfDialysis !== ''"><span class="f-right">วันที่เริ่มล้างไตทางช่องท้อง</span></v-col>
+              <v-col cols="12" md="4" class="pl-3 pr-2" v-if="dataPatient.dateOfDialysis !== null && dataPatient.dateOfDialysis !== ''">
                 <v-text-field outlined v-model="dataPatient.dateOfDialysis" dense disabled></v-text-field>
               </v-col>
               <!-- Year -->
-              <v-col cols="12" md="2" class="pl-3 pb-5 pt-0"><span class="f-right">อายุ</span></v-col>
-              <v-col cols="12" md="4" class="pl-3 pb-0">
+              <v-col cols="12" md="2" class="pl-3 pb-5 pt-0" v-if="dataPatient.age !== null && dataPatient.age !== ''"><span class="f-right">อายุ</span></v-col>
+              <v-col cols="12" md="4" class="pl-3 pb-0" v-if="dataPatient.age !== null && dataPatient.age !== ''">
                 <v-text-field outlined v-model="dataPatient.age" dense disabled></v-text-field>
               </v-col>
               <!-- Phone -->
-              <v-col cols="12" md="1" class="pl-3 pb-5 pt-0"><span class="f-right">หมายเลขหน่วยไตเทียม</span></v-col>
-              <v-col cols="12" md="4" class="pl-3">
+              <v-col cols="12" md="2" class="pl-3 pb-5 pt-0" v-if="dataPatient.hospitalCode !== null && dataPatient.hospitalCode !== ''"><span class="f-right">หมายเลขหน่วยไตเทียม</span></v-col>
+              <v-col cols="12" md="4" class="pl-3 pr-2" v-if="dataPatient.hospitalCode !== null && dataPatient.hospitalCode !== ''">
                 <v-text-field outlined v-model="dataPatient.hospitalCode" dense disabled></v-text-field>
               </v-col>
               <!-- Mobile -->
-              <v-col cols="12" md="2" class="pl-3 pb-5 pt-0"><span class="f-right">เบอร์โทรศัพท์</span></v-col>
-              <v-col cols="12" md="4" class="pl-3 pb-0">
+              <v-col cols="12" md="2" class="pl-3 pb-5 pt-0" v-if="dataPatient.telNo !== null && dataPatient.telNo !== ''"><span class="f-right">เบอร์โทรศัพท์</span></v-col>
+              <v-col cols="12" md="4" class="pl-3 pb-0" v-if="dataPatient.telNo !== null && dataPatient.telNo !== ''">
                 <v-text-field outlined v-model="dataPatient.telNo" dense disabled></v-text-field>
               </v-col>
               <!-- Nurse Name -->
-              <v-col cols="12" md="1" class="pl-3 pb-5 pt-0"><span class="f-right">ชื่อพยาบาลผู้สอน</span></v-col>
-              <v-col cols="12" md="4" class="pl-3">
+              <v-col cols="12" md="2" class="pl-3 pb-5 pt-0" v-if="dataPatient.staffName !== null && dataPatient.staffName !== ''"><span class="f-right">ชื่อพยาบาลผู้สอน</span></v-col>
+              <v-col cols="12" md="4" class="pl-3 pr-2" v-if="dataPatient.staffName !== null && dataPatient.staffName !== ''">
                 <v-text-field outlined v-model="dataPatient.staffName" dense disabled></v-text-field>
               </v-col>
               <!-- Nurse Mobile -->
-              <v-col cols="12" md="2" class="pl-3 pb-5 pt-0"><span class="f-right">หมายเลขโทรศัพท์พยาบาลผู้สอน</span></v-col>
-              <v-col cols="12" md="4" class="pl-3 pb-0">
+              <v-col cols="12" md="2" class="pl-3 pb-5 pt-0" v-if="dataPatient.staffTel !== null && dataPatient.staffTel !== ''"><span class="f-right">หมายเลขโทรศัพท์พยาบาลผู้สอน</span></v-col>
+              <v-col cols="12" md="4" class="pl-3 pb-0" v-if="dataPatient.staffTel !== null && dataPatient.staffTel !== ''">
                 <v-text-field outlined v-model="dataPatient.staffTel" dense disabled></v-text-field>
               </v-col>
               <!-- Phone -->
-              <v-col cols="12" md="1" class="pl-3 pb-5 pt-0"><span class="f-right">หมายเหตุ</span></v-col>
-              <v-col cols="12" md="4" class="pl-3">
+              <v-col cols="12" md="2" class="pl-3 pb-5 pt-0" v-if="dataPatient.remark !== null && dataPatient.remark !== ''"><span class="f-right">หมายเหตุ</span></v-col>
+              <v-col cols="12" md="4" class="pl-3 pr-2" v-if="dataPatient.remark !== null && dataPatient.remark !== ''">
                 <v-text-field outlined v-model="dataPatient.remark" dense disabled></v-text-field>
               </v-col>
             </v-row>
@@ -114,19 +113,24 @@
                   </v-col>
                 </v-row>
               </v-col>
-              <v-col cols='12' md='12' lg='6' sm='12' xs='12'>
+              <v-col cols='12' md='6' lg='6' sm='12' xs='12'>
                 <v-card class="ma-2 pa-2" tile max-height='100%' height="100%" outlined>
                   <Urinegraph :startDate='startValue' :endDate='endValue'/>
                 </v-card>
               </v-col>
-              <v-col cols='12' md='12' lg='6' sm='12' xs='12'>
+              <v-col cols='12' md='6' lg='6' sm='12' xs='12'>
                 <v-card class="ma-2 pa-2" tile max-height='100%' height="100%" outlined>
                   <BloodPresure :startDate='startValue' :endDate='endValue'/>
                 </v-card>
               </v-col>
-              <v-col cols="12" md='12' lg='12' sm='12' xs='12'>
+              <v-col cols="12" md='6' lg='6' sm='12' xs='12'>
                 <v-card class="ma-2 pa-2" tile max-height='100%' height="100%" outlined>
-                  <Timegraph :startDate='startValue' :endDate='endValue'/>
+                  <Dewellgraph :startDate='startValue' :endDate='endValue'/>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md='6' lg='6' sm='12' xs='12'>
+                <v-card class="ma-2 pa-2" tile max-height='100%' height="100%" outlined>
+                  <FillDraingraph :startDate='startValue' :endDate='endValue'/>
                 </v-card>
               </v-col>
             </v-row>
@@ -160,7 +164,8 @@ export default {
   components: {
     Urinegraph: () => import('@/components/DashBoard/urinegaingraph.vue'),
     BloodPresure: () => import('@/components/DashBoard/bloodpresuregraph.vue'),
-    Timegraph: () => import('@/components/DashBoard/timegraph.vue')
+    Dewellgraph: () => import('@/components/DashBoard/Dewellgraph.vue'),
+    FillDraingraph: () => import('@/components/DashBoard/FillDraingraph.vue')
   },
   data () {
     return {
@@ -220,7 +225,7 @@ export default {
       var cleanData = data.filter(item => item.id === this.PatientID)
       // console.log('Clean data =====>', cleanData)
       this.dataPatient = cleanData[0]
-      console.log('Clean data =====>', this.dataPatient)
+      // console.log('Clean data =====>', this.dataPatient)
       this.fullname = this.dataPatient.firstName + ' ' + this.dataPatient.lastName
       if (this.dataPatient.gender === 'MALE') {
         this.sex = 'ชาย'
@@ -272,7 +277,7 @@ export default {
         startDate: moment().format('YYYY-MM-DD'),
         endDate: moment().format('YYYY-MM-DD')
       }
-      console.log(data)
+      // console.log(data)
       await this.$store.dispatch('actionGetAllChart', data)
     },
     async AllDate () {

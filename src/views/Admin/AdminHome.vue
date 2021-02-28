@@ -79,7 +79,7 @@ export default {
   },
   methods: {
     gopage (val) {
-      console.log('path :', val)
+      // console.log('path :', val)
       if (val.name === 'ออกจากระบบ') {
         this.logout()
       } else {

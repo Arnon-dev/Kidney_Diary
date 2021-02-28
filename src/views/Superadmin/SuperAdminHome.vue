@@ -84,12 +84,12 @@ export default {
   },
   methods: {
     gopage (val) {
-      console.log('path :', val)
+      // console.log('path :', val)
       if (val.name === 'ออกจากระบบ') {
         this.logout()
       } else {
         if (val !== this.$router.currentRoute.name) {
-          console.log(val);
+          // console.log(val);
           this.$router.push(val).catch(() => {})
         }
       }

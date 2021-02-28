@@ -27,9 +27,11 @@ export default new Vuex.Store({
     stateGetAllDiary: [],
     stateGetOneDiary: [],
     stateDeleteDiary: [],
-    // Time Graph
+    // Dewell Graph
     stateGetDewellChart: [],
     stateGetDewellChartData: [],
+    // Fill Drain Graph
+    stateGetFillDrainChart: [],
     // Urine Gain Graph
     stateGetProfitChart: [],
     stateGetProfitChartDate: [],
@@ -106,6 +108,9 @@ export default new Vuex.Store({
     mutationGetDewellChart (state, data) {
       state.stateGetDewellChart = data
     },
+    mutationGetFillDrainChart (state, data) {
+      state.stateGetFillDrainChart = data
+    },
     mutationGetProfitChart (state, data) {
       state.stateGetProfitChart = data
     },
@@ -116,6 +121,7 @@ export default new Vuex.Store({
       state.stateGetDewellChart = data.DewellChart
       state.stateGetProfitChart = data.ProfitChart
       state.stateGetWeightChart = data.WeightChart
+      state.stateGetFillDrainChart = data.FillDrainChart
     },
     DashboardReady (state, status) {
       state.dashboardReady = status
@@ -221,12 +227,14 @@ export default new Vuex.Store({
     },
     async actionGetAllChart (context, access) {
       var axiosGetDewellChart = await AxiosAPI.GetDewellChart(access)
+      var axiosGetFillDrainChart = await AxiosAPI.GetfillDrainChart(access)
       var axiosGetProfitChart = await AxiosAPI.GetProfitChart(access)
       var axiosGetWeightChart = await AxiosAPI.GetWeightChart(access)
       var data = {
         DewellChart: axiosGetDewellChart,
         ProfitChart: axiosGetProfitChart,
-        WeightChart: axiosGetWeightChart
+        WeightChart: axiosGetWeightChart,
+        FillDrainChart: axiosGetFillDrainChart
       }
       await context.commit('mutationGetAllData', data)
       await context.commit('DashboardReady', true)

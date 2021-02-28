@@ -34,35 +34,9 @@ export default {
             autoScaleYaxis: true
           }
         },
-        // annotations: {
-        //   yaxis: [{
-        //     y: 30,
-        //     borderColor: '#999',
-        //     label: {
-        //       show: true,
-        //       text: 'Support',
-        //       style: {
-        //         color: "#fff",
-        //         background: '#00E396'
-        //       }
-        //     }
-        //   }],
-        //   xaxis: [{
-        //     x: new Date('14 Nov 2012').getTime(),
-        //     borderColor: '#999',
-        //     yAxisIndex: 0,
-        //     label: {
-        //       show: true,
-        //       text: 'Rally',
-        //       style: {
-        //         color: "#fff",
-        //         background: '#775DD0'
-        //       }
-        //     }
-        //   }]
-        // },
         dataLabels: {
-          enabled: false
+          enabled: true,
+          textAnchor: 'start',
         },
         markers: {
           size: 0,
@@ -73,11 +47,21 @@ export default {
             formatter: function(value) {
               return 'round ' + value
             }
+          },
+          title: {
+            text: 'Round',
+          }
+        },
+        yaxis: {
+          title: {
+            text: 'Urine & Gain (ml)',
           }
         },
         tooltip: {
-          x: {
-            format: 'dd MMM yyyy'
+          y: {
+            formatter: function (val) {
+              return val + ' ml'
+            }
           }
         },
         fill: {

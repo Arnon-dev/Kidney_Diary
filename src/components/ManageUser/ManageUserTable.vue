@@ -87,7 +87,7 @@ export default {
     async GetAllAdmin () {
       await this.$store.dispatch('actionsGetAllUser')
       var response = await this.$store.state.stateGetAllUser
-      console.log('respose', response)
+      // console.log('respose', response)
       if (response.response_status === 'SUCCESS') {
         var data = response.data.filter(item => item.type === 'ADMIN')
         // console.log('data clean', data)

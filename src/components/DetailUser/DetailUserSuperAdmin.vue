@@ -79,19 +79,24 @@
                 <h2>แดชบอร์ด</h2>
               </v-col>
               <v-col cols="12" class="mb-5"><v-divider></v-divider></v-col>
-              <v-col cols='12' md='12' lg='6' sm='12' xs='12'>
+              <v-col cols='12' md='6' lg='6' sm='12' xs='12'>
                 <v-card class="ma-2 pa-2" tile max-height='100%' height="100%" outlined>
                   <Urinegraph/>
                 </v-card>
               </v-col>
-              <v-col cols='12' md='12' lg='6' sm='12' xs='12'>
+              <v-col cols='12' md='6' lg='6' sm='12' xs='12'>
                 <v-card class="ma-2 pa-2" tile max-height='100%' height="100%" outlined>
                   <BloodPresure/>
                 </v-card>
               </v-col>
-              <v-col cols="12" md='12' lg='12' sm='12' xs='12'>
+              <v-col cols="12" md='6' lg='6' sm='12' xs='12'>
                 <v-card class="ma-2 pa-2" tile max-height='100%' height="100%" outlined>
-                  <Timegraph/>
+                  <Dewellgraph/>
+                </v-card>
+              </v-col>
+              <v-col cols="12" md='6' lg='6' sm='12' xs='12'>
+                <v-card class="ma-2 pa-2" tile max-height='100%' height="100%" outlined>
+                  <FillDraingraph/>
                 </v-card>
               </v-col>
             </v-row>
@@ -107,7 +112,8 @@ export default {
   components: {
     Urinegraph: () => import('@/components/DashBoard/urinegaingraph.vue'),
     BloodPresure: () => import('@/components/DashBoard/bloodpresuregraph.vue'),
-    Timegraph: () => import('@/components/DashBoard/timegraph.vue')
+    Dewellgraph: () => import('@/components/DashBoard/Dewellgraph.vue'),
+    FillDraingraph: () => import('@/components/DashBoard/FillDraingraph.vue')
   },
   data () {
     return {

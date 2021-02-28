@@ -18,6 +18,8 @@
            @page-count="pageCount = $event"
            :page.sync="page"
            :items-per-page="itemsPerPage"
+           :loading="loadingData"
+           loading-text="กำลังโหลดข้อมูลคนไข้"
            hide-default-footer
            no-data-text="ไม่มีข้อมูลคนไข้"
            no-results-text="ไม่ค้นพบข้อมูลคนไข้"
@@ -50,6 +52,7 @@ export default {
   data () {
     return {
       search: '',
+      loadingData: true,
       pageCount: 5,
       page: 1,
       itemsPerPage: 10,
@@ -94,12 +97,13 @@ export default {
       var data = {
         hospitalID: this.hospitalID
       }
-      console.log(data)
+      // console.log(data)
       await this.$store.dispatch('actionsGetAllUserByHospitalID', data)
       var response = await this.$store.state.stateGetAllUserByHospital
       // console.log('response Get All User =====>', response)
       if (response.response_status === 'SUCCESS') {
         this.DataAll = response.data
+        this.loadingData = false
         // console.log('Data All', this.DataAll)
         if (response.data !== undefined) {
           var datauser = response.data.users
