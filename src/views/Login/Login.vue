@@ -106,10 +106,10 @@ export default {
         if (response.response_status === 'SUCCESS') {
           if (response.data.admin.type === 'ADMIN') {
             localStorage.setItem('kidnryData', Encode.encode(response.data))
-            this.$router.push("admin").catch(() => {})
+            this.$router.push({ path: "/admin" }).catch(() => {})
           } else if (response.data.admin.type === 'SUPERADMIN') {
             localStorage.setItem('kidnryData', Encode.encode(response.data))
-            this.$router.push("superadmin").catch(() => {})
+            this.$router.push({ path: "/superadmin" }).catch(() => {})
           }
         } else {
           this.$swal.fire({

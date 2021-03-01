@@ -76,11 +76,15 @@ export default {
   },
   created () {
     this.$EventBus.$on('pathNavSuperAdmin', this.pathNavSuperAdmin)
-    const kidneyData = JSON.parse(Decode.decode(localStorage.getItem('kidnryData')))
-    // console.log('kidneydata ===>', kidneyData)
-    this.nameUser = kidneyData.admin.firstName + ' ' + kidneyData.admin.lastName
-    this.image = kidneyData.admin.image
-    this.pathNavSuperAdmin()
+    if (localStorage.getItem('kidnryData') !== null) {
+      const kidneyData = JSON.parse(Decode.decode(localStorage.getItem('kidnryData')))
+      // console.log('kidneydata ===>', kidneyData)
+      this.nameUser = kidneyData.admin.firstName + ' ' + kidneyData.admin.lastName
+      this.image = kidneyData.admin.image
+      this.pathNavSuperAdmin()
+    } else {
+      this.$router.push('/').catch(() => {})
+    }
   },
   methods: {
     gopage (val) {
