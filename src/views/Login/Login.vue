@@ -36,16 +36,16 @@
                     <v-card-text class="pb-0">
                       <v-row no-gutters dense>
                         <v-col cols="12" md="12">
-                            <p>E-mail</p>
+                          <p>E-mail</p>
                         </v-col>
                         <v-col cols="12" md="12">
-                            <v-text-field v-model="username" placeholder="กรุณากรอกอีเมล์" filled rounded dense :rules="rules.emailRules" required></v-text-field>
+                          <v-text-field v-model="username" placeholder="กรุณากรอกอีเมล์" filled rounded dense :rules="rules.emailRules" required @keyup.enter="login()"></v-text-field>
                         </v-col>
                         <v-col cols="12" md="12">
-                            <p>Password</p>
+                          <p>Password</p>
                         </v-col>
                         <v-col cols="12" md="12">
-                            <v-text-field :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" :type="show ? 'text' : 'password'" @click:append="show = !show" v-model="password" placeholder="กรุณากรอกพาสเวิร์ด" filled rounded dense :rules="rules.password" required></v-text-field>
+                          <v-text-field :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'" :type="show ? 'text' : 'password'" @click:append="show = !show" v-model="password" placeholder="กรุณากรอกพาสเวิร์ด" filled rounded dense :rules="rules.password" required @keyup.enter="login()"></v-text-field>
                         </v-col>
                       </v-row>
                     </v-card-text>
@@ -114,7 +114,7 @@ export default {
         } else {
           this.$swal.fire({
             icon: 'error',
-            title: `${response.message}`,
+            title: 'อีเมลหรือรหัสผ่านผิด',
             showConfirmButton: false,
             timer: 1500
           })
