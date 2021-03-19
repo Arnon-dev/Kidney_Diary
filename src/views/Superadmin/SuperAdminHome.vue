@@ -3,7 +3,7 @@
     <a-layout-header :style="{ position: 'fixed', zIndex: 1, width: '100%' ,background: '#fff'}" >
       <v-row no-gutters>
         <v-col cols="5">
-          <v-row no-gutters style="cursor: pointer;">
+          <v-row no-gutters style="cursor: pointer;" @click="gopage('superadmin')">
             <a-breadcrumb separator=">" class="ml-3 mt-4">
               <a-breadcrumb-item class="headline"><span style="color:green">Kidney </span>Diary</a-breadcrumb-item>
             </a-breadcrumb>
@@ -12,8 +12,7 @@
         <v-col cols="7" class="pt-2 pr-5">
           <v-row justify="end" align="center">
             <v-avatar size="25">
-              <v-img :src="`${image}`" v-if="image !== null"/>
-              <v-img src="@/assets/noprofile.png" v-else />
+              <v-img src="@/assets/noprofile.png" />
             </v-avatar>
             <span class="pt-2 pl-3 pr-1 pb-2">{{ nameUser }} </span>
             <v-divider vertical class="mx-2" height='50px'></v-divider>

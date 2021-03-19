@@ -4,4 +4,6 @@
   </v-app>
 </template>
 
-<style></style>
+<style>
+  @import './assets/styles.css';
+</style>

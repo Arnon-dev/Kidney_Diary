@@ -1,0 +1,100 @@
+/* @font-face {
+    font-family: 'cloud_lightlight';
+    src: url('font/cloud-light-webfont.eot');
+    src: url('font/cloud-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('font/cloud-light-webfont.woff2') format('woff2'),
+         url('font/cloud-light-webfont.woff') format('woff'),
+         url('font/cloud-light-webfont.ttf') format('truetype'),
+         url('font/cloud-light-webfont.svg#cloud_lightlight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'cloudbold';
+    src: url('font/cloud-bold-webfont.eot');
+    src: url('font/cloud-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('font/cloud-bold-webfont.woff2') format('woff2'),
+         url('font/cloud-bold-webfont.woff') format('woff'),
+         url('font/cloud-bold-webfont.ttf') format('truetype'),
+         url('font/cloud-bold-webfont.svg#cloudbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+} */
+@font-face {
+    font-family: 'Mitr';
+    src: url('font/mitr/Mitr-Light.ttf');
+    font-weight: normal;
+    font-style: normal;
+} 
+
+html, body, span, div, a, h1, h2, h3, h4, b, th, td, .topic, .display-4, .display-3, .display-2, .display-1, .headline, .title, .subheading, .body-2, .body-1, .caption {
+  font-family: 'Mitr' !important;
+  /* color: rgb(222, 226, 215); */
+  /* color: #777777; */
+}
+html, body, span, div, a, b, th, td { font-size: 16px !important; }
+
+.topic { font-size: 34px !important; }
+
+.bold { font-weight: bold !important; }
+
+.grey--border { border: 1px solid #EEE; }
+
+.hand { cursor: pointer; }
+.default { cursor: default; }
+
+.underline:hover {
+  text-decoration: underline !important;
+}
+
+.left { float: left; }
+.right { float: right; }
+.end-x {
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
+}
+.end-y {
+  display: flex;
+  height: 100%;
+  align-items: flex-end;
+}
+.center-y {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+.h-center {
+  display: flex;
+  align-items: center;
+}
+.center-x {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.h-100 { height: 100% !important; }
+.w-100 { width: 100% !important; }
+
+.noshadow { box-shadow: none !important; }
+
+.fixBottom {
+  position: fixed;
+  bottom: 1em;
+  right: 1em;
+}
+
+/*
+h1, h2, h3, h4, b, .bold  {
+  font-family: 'cloudbold' !important;
+}
+th {
+  font-family: 'cloudbold' !important;
+  font-size: 17px !important;
+}
+.swal2-icon {
+  font-family: 'cloudbold' !important;
+  font-size: 200% !important;
+}
+.dialog { box-shadow: none !important; }
+*/
