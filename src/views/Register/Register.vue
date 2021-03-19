@@ -36,37 +36,37 @@
                     <v-card-text class="pb-0">
                       <v-row no-gutters dense>
                         <v-col cols="12" md="3" sm="12" class="pt-2">
-                          <p>E-mail</p>
+                          <p>E-mail <span style="color: red;">*</span></p>
                         </v-col>
                         <v-col cols="12" md="9" sm="12">
                           <v-text-field v-model="username" placeholder="กรุณากรอกอีเมล์" filled rounded dense :rules="rules.emailRules"></v-text-field>
                         </v-col>
                         <v-col cols="12" md="3" sm="12" class="pt-2">
-                          <p>Password</p>
+                          <p>Password <span style="color: red;">*</span></p>
                         </v-col>
                         <v-col cols="12" md="9" sm="12">
                           <v-text-field v-model="password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :type="show1 ? 'text' : 'password'" placeholder="กรุณากรอกพาสเวิร์ด" filled rounded dense :rules="rules.password" @click:append="show1 = !show1"></v-text-field>
                         </v-col>
                         <v-col cols="12" md="3" sm="12" class="pt-2">
-                          <p>ชื่อ</p>
+                          <p>ชื่อ <span style="color: red;">*</span></p>
                         </v-col>
                         <v-col cols="12" md="9" sm="12">
                           <v-text-field v-model="name" placeholder="กรุณากรอกชื่อ" filled rounded dense :rules="rules.name"></v-text-field>
                         </v-col>
                         <v-col cols="12" md="3" sm="12" class="pt-2">
-                          <p>นามสกุล</p>
+                          <p>นามสกุล <span style="color: red;">*</span></p>
                         </v-col>
                         <v-col cols="12" md="9" sm="12">
                           <v-text-field v-model="sername" placeholder="กรุณากรอกนามสกุล" filled rounded dense :rules="rules.sername"></v-text-field>
                         </v-col>
                         <v-col cols="12" md="3" sm="12" class="pt-2">
-                          <p>ตำแหน่ง</p>
+                          <p>ตำแหน่ง <span style="color: red;">*</span></p>
                         </v-col>
                         <v-col cols="12" md="9" sm="12">
                           <v-text-field v-model="duty" placeholder="กรุณากรอกตำเหน่ง" filled rounded dense :rules="rules.duty"></v-text-field>
                         </v-col>
                         <v-col cols="12" md="3" sm="12" class="pt-2">
-                          <p>โรงพยาบาล</p>
+                          <p>โรงพยาบาล <span style="color: red;">*</span></p>
                         </v-col>
                         <v-col cols="12" md="9" sm="12">
                           <v-select v-model="hospital" :items="itemshospital" item-text="name" item-value="id" filled placeholder="กรุณาเลือกโรงพยาบาล" rounded dense :rules="rules.selectRules"></v-select>
@@ -78,7 +78,7 @@
                           <v-select v-model="type" :items="itemstype" filled placeholder="กรุณาเลือกหน้าที่" item-text="role" item-value="values"  :rules="rules.selectRules" rounded dense></v-select>
                         </v-col> -->
                         <v-col cols="12" md="12" sm="12">
-                          <p>อัพโหลดบัตรประจำตัวประชาชน</p>
+                          <p>อัพโหลดบัตรประจำตัวประชาชน <span style="color: red;">*</span></p>
                         </v-col>
                         <v-col cols="12" md="12" sm="12">
                           <input type="file" ref="image" id="picTure" accept="image/*" @change="showPicture">
