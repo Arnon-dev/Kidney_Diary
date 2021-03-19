@@ -63,7 +63,7 @@ export default {
           text: 'ลำดับ',
           align: 'start',
           sortable: true,
-          value: 'id',
+          value: 'orderNumber',
         },
         { text: 'ชื่อ - นามสกุล', value: 'fullname', align: 'center', sortable: true },
         { text: 'เพศ', value: 'gender', align: 'center', sortable: true },
@@ -107,6 +107,9 @@ export default {
         // console.log('Data All', this.DataAll)
         if (response.data !== undefined) {
           var datauser = response.data.users
+          for (let i in datauser) {
+            datauser[i].orderNumber = parseInt(i) + 1
+          }
           this.DataPatient = datauser.filter(element => {
             element.hospitalName = response.data.hospital.name
             element.hospitalCode = response.data.hospital.code

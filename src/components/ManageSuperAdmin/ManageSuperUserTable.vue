@@ -67,7 +67,7 @@ export default {
           text: 'ลำดับ',
           align: 'start',
           sortable: true,
-          value: 'id',
+          value: 'orderNumber',
         },
         { text: 'email', value: 'email', align: 'center', sortable: true },
         { text: 'ชื่อ - นามสกุล', value: 'fullname', align: 'center', sortable: true },
@@ -95,6 +95,9 @@ export default {
         this.loadingData = false
         // console.log('data clean', data)
         this.itemsSuperAdmin = data
+        for (let i in this.itemsSuperAdmin) {
+          this.itemsSuperAdmin[i].orderNumber = parseInt(i) + 1
+        }
       }
     },
     async ChangeStatus (val) {

@@ -64,7 +64,7 @@ export default {
           text: 'ลำดับ',
           align: 'start',
           sortable: true,
-          value: 'id',
+          value: 'orderNumber',
         },
         { text: 'email', value: 'email', sortable: true, align: 'center' },
         // { text: 'password', value: 'password', align: 'center' },
@@ -92,6 +92,9 @@ export default {
         var data = response.data.filter(item => item.type === 'ADMIN')
         // console.log('data clean', data)
         this.itemsAdmin = data
+        for (let i in this.itemsAdmin) {
+          this.itemsAdmin[i].orderNumber = parseInt(i) + 1
+        }
       }
     },
     async ChangeStatus (val) {
