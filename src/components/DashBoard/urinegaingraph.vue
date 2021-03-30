@@ -8,8 +8,11 @@
         <v-btn id="one_year" @click="updateData('one_year')" :class="{active: selection==='one_year'}" text dense>Year</v-btn>
         <v-btn id="all" @click="updateData('all')" :class="{active: selection==='all'}" text dense>ALL</v-btn>
       </v-col> -->
-      <v-col cols="12" md='12'>
+      <v-col cols="12" md='12' v-if="startDate === null && endDate === null">
         <apexchart type="area" height="350" ref="chart" :options="chartOptions" :series="UrineSeries"></apexchart>
+      </v-col>
+      <v-col cols="12" md='12' v-else>
+        <apexchart type="area" height="350" ref="chart" :options="chartOptionsDate" :series="UrineSeriesDate"></apexchart>
       </v-col>
     </v-row>
   </v-container>
@@ -17,10 +20,12 @@
 
 <script>
 export default {
+  props: ['startDate', 'endDate'],
   data () {
     return {
       series: [],
-      selection: 'one_year'
+      selection: 'one_year',
+      date: []
     }
   },
   computed: {
@@ -78,14 +83,85 @@ export default {
         },
       }
     },
+    chartOptionsDate () {
+      return {
+        chart: {
+          id: 'area-datetime',
+          type: 'area',
+          height: 350,
+          zoom: {
+            autoScaleYaxis: true
+          }
+        },
+        dataLabels: {
+          enabled: true,
+          textAnchor: 'start',
+        },
+        markers: {
+          size: 0,
+          style: 'hollow',
+        },
+        xaxis: {
+          categories: this.date,
+          // labels: {
+          //   formatter: function(value) {
+          //     return 'round ' + value
+          //   }
+          // },
+          title: {
+            text: 'Date',
+          }
+        },
+        yaxis: {
+          title: {
+            text: 'Urine & Gain (ml)',
+          }
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return val + ' ml'
+            }
+          }
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.9,
+            stops: [0, 100]
+          }
+        },
+        noData: {
+          text: 'ไม่มีข้อมูล'
+        },
+      }
+    },
     UrineSeries () {
       var response = this.$store.state.stateGetProfitChart
       // console.log('Urien Data====>', response.data)
-      var series = response.data
+      var series = []
+      series = response.data
+      // console.log(series)
+      return series
+    },
+    UrineSeriesDate () {
+      var response = this.$store.state.stateGetProfitChart
+      // console.log('Urien Data====>', response.data)
+      var series = []
+      series = response.data
+      this.setDate(response.data[response.data.length - 1])
+      series.splice(-1, 1)
+      console.log(series)
       return series
     }
   },
   methods: {
+    setDate (val) {
+      // console.log(val)
+      this.date = val.data
+    }
     // updateData: function(timeline) {
     //   this.selection = timeline
     //   switch (timeline) {
